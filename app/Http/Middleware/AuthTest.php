@@ -16,6 +16,12 @@ class AuthTest
      */
     public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        if(!empty(session('Authentifie')))
+        {
+            $request->session()->put('Authentifie', time());
+            return $next($request);
+
+        }
+        return redirect('login');
     }
 }
